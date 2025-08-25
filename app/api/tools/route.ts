@@ -8,7 +8,6 @@ import {
   UIDataTypes,
   stepCountIs,
 } from "ai";
-import axios from "axios";
 import { z } from "zod";
 
 const tools = {
@@ -23,7 +22,8 @@ const tools = {
     }),
     execute: async ({ city }) => {
       const url = `https://wttr.in/${city.toLowerCase()}?format=%C+%t`;
-      const { data } = await axios.get(url);
+      const response = await fetch(url);
+      const data = await response.text();
       return data;
     },
   }),
